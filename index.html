@@ -299,6 +299,15 @@
     padding-top:20px;
     border-top:1px solid var(--line);
   }
+  .price-card.quote{
+    border-left:2px solid var(--accent-video);
+  }
+  .amount.quote-amount{
+    font-family:'Noto Sans JP', sans-serif;
+    font-weight:500;
+    font-size:17px;
+    color:var(--ink-soft);
+  }
   @media (max-width:560px){
     .price-grid{grid-template-columns:1fr;}
   }
@@ -375,6 +384,33 @@
     color:var(--ink-faint);
     font-family:'JetBrains Mono', monospace;
     font-size:13px;
+  }
+
+  /* ---- Showcase embeds ---- */
+  .showcase-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit, minmax(280px, 1fr));
+    gap:24px;
+    margin-top:30px;
+  }
+  .showcase-item{
+    background:var(--card);
+    border:1px solid var(--line);
+    padding:14px;
+    display:flex;
+    justify-content:center;
+    align-items:flex-start;
+  }
+  .video-embed{
+    position:relative;
+    width:100%;
+    aspect-ratio:9/16;
+  }
+  .video-embed iframe{
+    position:absolute;
+    top:0; left:0;
+    width:100%; height:100%;
+    border:0;
   }
 
   /* ---- Contact ---- */
@@ -555,6 +591,8 @@
   <div class="wrap">
     <span class="eyebrow">PRICING</span>
     <h2 class="section-title">料金</h2>
+
+    <div class="ach-label mono"><span class="swatch" style="background:var(--accent-drone)"></span>DRONE — 定額プラン</div>
     <div class="price-grid">
       <div class="price-card">
         <div class="plan mono">PLAN A — 動画撮影</div>
@@ -567,7 +605,22 @@
         <div class="desc">フライト約30〜40分・静止画納品</div>
       </div>
     </div>
-    <p class="price-note">宝塚市・尼崎市・伊丹市・川西市・三田市・西宮市は移動費無料。それ以外のエリア、オプション内容、3DCG・映像制作単体のご依頼については、お問い合わせ時に詳細をご案内します。</p>
+    <p class="price-note">宝塚市・尼崎市・伊丹市・川西市・三田市・西宮市は移動費無料。それ以外のエリアについては、お問い合わせ時にご案内します。</p>
+
+    <div class="ach-label mono" style="margin-top:44px;"><span class="swatch" style="background:var(--accent-video)"></span>VIDEO / 3DCG — お見積り制</div>
+    <div class="price-grid">
+      <div class="price-card quote">
+        <div class="plan mono">映像制作・編集</div>
+        <div class="amount quote-amount">ご相談・お見積り</div>
+        <div class="desc">撮影素材の内容・ボリュームによって内容が変わるため、ご相談の上でお見積りします。</div>
+      </div>
+      <div class="price-card quote">
+        <div class="plan mono">3DCG</div>
+        <div class="amount quote-amount">ご相談・お見積り</div>
+        <div class="desc">モデルの複雑さ・用途によって内容が変わるため、ご相談の上でお見積りします。</div>
+      </div>
+    </div>
+    <p class="price-note">まずはお気軽にご相談ください。内容をお伺いした上でお見積りをご案内します。</p>
   </div>
 </section>
 
@@ -608,9 +661,25 @@
 
 <section id="channels" class="reveal">
   <div class="wrap">
-    <span class="eyebrow">CHANNELS</span>
+    <span class="eyebrow">SHOWCASE</span>
     <h2 class="section-title">制作事例・最新情報</h2>
-    <p class="lead">日々の撮影・制作の様子は各SNSで発信しています。</p>
+    <p class="lead">実際の制作物をいくつかご紹介します。</p>
+
+    <div class="showcase-grid">
+      <div class="showcase-item">
+        <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/reel/DaNLbKtjY6z/" data-instgrm-version="14" style="width:100%; margin:0;"></blockquote>
+      </div>
+      <div class="showcase-item">
+        <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/reel/DafM_MSDQGs/" data-instgrm-version="14" style="width:100%; margin:0;"></blockquote>
+      </div>
+      <div class="showcase-item">
+        <div class="video-embed">
+          <iframe src="https://www.youtube.com/embed/24UDg7n54us" title="たがし屋 制作事例" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen loading="lazy"></iframe>
+        </div>
+      </div>
+    </div>
+
+    <p class="lead" style="margin-top:46px;">その他の投稿・最新情報は各SNSをご覧ください。</p>
     <div class="channels">
       <a class="channel" href="https://www.instagram.com/tagashiya_drone/" target="_blank" rel="noopener">Instagram（ドローン）<span class="arrow mono">→</span></a>
       <a class="channel" href="https://www.instagram.com/tagashiya/" target="_blank" rel="noopener">Instagram（映像・3DCG）<span class="arrow mono">→</span></a>
@@ -651,6 +720,8 @@
     <p class="privacy">お預かりした個人情報は、お問い合わせへの対応以外の目的には使用しません。</p>
   </div>
 </footer>
+
+<script async src="https://www.instagram.com/embed.js"></script>
 
 <script>
   // Scroll reveal, respects prefers-reduced-motion via CSS above
