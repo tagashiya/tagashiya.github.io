@@ -356,6 +356,13 @@
     .ach-item{flex-direction:column; gap:4px;}
     .ach-item .what{text-align:left;}
   }
+  .ach-item.single{
+    justify-content:flex-start;
+  }
+  .ach-item.single .statement{
+    color:var(--ink);
+    font-size:14px;
+  }
 
   /* ---- Channels ---- */
   .channels{
@@ -498,6 +505,7 @@
     <ul class="nav-links">
       <li><a href="#services">事業内容</a></li>
       <li><a href="#achievements">実績</a></li>
+      <li><a href="#portfolio">制作事例</a></li>
       <li><a href="#pricing">料金</a></li>
       <li><a href="#contact">お問い合わせ</a></li>
     </ul>
@@ -605,7 +613,7 @@
         <div class="desc">フライト約30〜40分・静止画納品</div>
       </div>
     </div>
-    <p class="price-note">宝塚市・尼崎市・伊丹市・川西市・三田市・西宮市は移動費無料。それ以外のエリアについては、お問い合わせ時にご案内します。</p>
+    <p class="price-note">宝塚市・尼崎市・伊丹市・川西市・三田市・西宮市は移動費無料。それ以外のエリアについては、お問い合わせ時にご案内します。オプション料金・ロケハン費用・キャンセル規定を含む<a href="price.html" style="color:var(--accent-drone); text-decoration:underline;">詳細な料金表はこちら</a>。</p>
 
     <div class="ach-label mono" style="margin-top:44px;"><span class="swatch" style="background:var(--accent-video)"></span>VIDEO / 3DCG — お見積り制</div>
     <div class="price-grid">
@@ -646,23 +654,21 @@
     <div class="ach-group">
       <div class="ach-label mono"><span class="swatch" style="background:var(--accent-3dcg)"></span>3DCG</div>
       <div class="ach-list">
-        <div class="ach-item">
-          <span class="who">BOOTH</span>
-          <span class="what">3DCGモデル素材の販売実績</span>
+        <div class="ach-item single">
+          <span class="statement">BOOTHにて3DCGモデル素材を販売中</span>
         </div>
-        <div class="ach-item">
-          <span class="who">Lancers</span>
-          <span class="what">3DCG制作講師案件</span>
+        <div class="ach-item single">
+          <span class="statement">3DCG制作の講師を担当</span>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<section id="channels" class="reveal">
+<section id="portfolio" class="reveal">
   <div class="wrap">
-    <span class="eyebrow">SHOWCASE</span>
-    <h2 class="section-title">制作事例・最新情報</h2>
+    <span class="eyebrow">PORTFOLIO</span>
+    <h2 class="section-title">制作事例</h2>
     <p class="lead">実際の制作物をいくつかご紹介します。</p>
 
     <div class="showcase-grid">
@@ -678,8 +684,14 @@
         </div>
       </div>
     </div>
+  </div>
+</section>
 
-    <p class="lead" style="margin-top:46px;">その他の投稿・最新情報は各SNSをご覧ください。</p>
+<section id="updates" class="alt reveal">
+  <div class="wrap">
+    <span class="eyebrow">LATEST</span>
+    <h2 class="section-title">最新情報</h2>
+    <p class="lead">日々の撮影・制作の様子は各SNSで発信しています。</p>
     <div class="channels">
       <a class="channel" href="https://www.instagram.com/tagashiya_drone/" target="_blank" rel="noopener">Instagram（ドローン）<span class="arrow mono">→</span></a>
       <a class="channel" href="https://www.instagram.com/tagashiya/" target="_blank" rel="noopener">Instagram（映像・3DCG）<span class="arrow mono">→</span></a>
