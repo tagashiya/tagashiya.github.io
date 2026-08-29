@@ -7,19 +7,18 @@
 <meta name="description" content="兵庫県宝塚市を拠点に、ドローン空撮・映像制作・3DCGを提供する「たがし屋」。二等無人航空機操縦士資格・包括飛行申請対応済み。近畿圏の法人・自治体・観光施設向けに対応しています。">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;600;800&family=Noto+Sans+JP:wght@300;400;500;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;600;800&family=Noto+Serif+JP:wght@400;500;600&family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
 <style>
   :root{
-    --bg:#F5F6F4;
-    --bg-alt:#EDF1F0;
+    --bg:#F4F1E8;
+    --bg-alt:#DCE6F2;
     --card:#FFFFFF;
     --ink:#1C2A33;
     --ink-soft:#55636B;
     --ink-faint:#8B979C;
-    --line:#D7DEDC;
-    --accent-drone:#2D6A8F;
-    --accent-video:#6B5B95;
-    --accent-3dcg:#B98235;
+    --line:#1B4B8A;
+    --lapis:#1B4B8A;
+    --gold:#C9A227;
     --radius:2px;
   }
 
@@ -45,11 +44,11 @@
     font-weight:600;
     letter-spacing:0.02em;
     margin:0;
-    color:var(--ink);
+    color:var(--lapis);
   }
 
   .mono{
-    font-family:'JetBrains Mono', monospace;
+    font-family:'Noto Serif JP', serif;
     letter-spacing:0.08em;
   }
 
@@ -61,12 +60,24 @@
     padding:0 28px;
   }
 
+  /* ---- Icons ---- */
+  .picon{
+    width:16px;
+    height:16px;
+    color:var(--lapis);
+    flex-shrink:0;
+  }
+  .icon-pair{
+    display:inline-flex;
+    gap:4px;
+  }
+
   /* ---- Nav ---- */
   .nav{
     position:sticky;
     top:0;
     z-index:50;
-    background:rgba(245,246,244,0.92);
+    background:rgba(244,241,232,0.92);
     backdrop-filter:blur(6px);
     border-bottom:1px solid var(--line);
   }
@@ -83,6 +94,7 @@
     font-weight:600;
     font-size:15px;
     letter-spacing:0.08em;
+    color:var(--lapis);
   }
   .nav-links{
     display:flex;
@@ -98,7 +110,7 @@
     transition:color 0.2s;
   }
   .nav-links a:hover, .nav-links a:focus-visible{
-    color:var(--accent-drone);
+    color:var(--lapis);
   }
   @media (max-width:600px){
     .nav-links{gap:14px; font-size:12px;}
@@ -113,7 +125,7 @@
   }
   .flightline .dot{
     width:6px; height:6px; border-radius:50%;
-    background:var(--accent-drone);
+    background:var(--lapis);
     flex-shrink:0;
   }
   .flightline .rule{
@@ -139,6 +151,8 @@
     margin-bottom:26px;
   }
   .hero .headline{
+    font-family:'Shippori Mincho', serif;
+    color:var(--lapis);
     font-size:clamp(30px, 5vw, 46px);
     line-height:1.5;
     margin-bottom:22px;
@@ -158,10 +172,10 @@
   }
   .eyebrow{
     display:inline-block;
-    font-family:'JetBrains Mono', monospace;
+    font-family:'Noto Serif JP', serif;
     font-size:11px;
     letter-spacing:0.14em;
-    color:var(--ink-faint);
+    color:var(--lapis);
     margin-bottom:14px;
   }
   .section-title{
@@ -189,17 +203,14 @@
     padding:30px 26px;
   }
   .pillar .idx{
-    font-family:'JetBrains Mono', monospace;
+    font-family:'Noto Serif JP', serif;
     font-size:11px;
     letter-spacing:0.1em;
+    color:var(--lapis);
     margin-bottom:18px;
     display:flex;
     align-items:center;
     gap:8px;
-  }
-  .pillar .idx .swatch{
-    width:8px; height:8px;
-    display:inline-block;
   }
   .pillar h3{
     font-size:19px;
@@ -210,9 +221,6 @@
     color:var(--ink-soft);
     margin:0;
   }
-  .p-drone .idx .swatch{background:var(--accent-drone);}
-  .p-video .idx .swatch{background:var(--accent-video);}
-  .p-3dcg  .idx .swatch{background:var(--accent-3dcg);}
 
   @media (max-width:700px){
     .pillars{grid-template-columns:1fr;}
@@ -220,7 +228,7 @@
 
   /* ---- Combo statement ---- */
   .combo{
-    border-left:2px solid var(--accent-drone);
+    border-left:2px solid var(--lapis);
     padding-left:26px;
     margin-top:8px;
   }
@@ -249,9 +257,9 @@
   }
   .trust-row:last-child{border-bottom:none;}
   .trust-row .label{
-    font-family:'JetBrains Mono', monospace;
+    font-family:'Noto Serif JP', serif;
     font-size:11px;
-    color:var(--ink-faint);
+    color:var(--lapis);
     letter-spacing:0.06em;
     white-space:nowrap;
   }
@@ -277,9 +285,9 @@
     padding:26px;
   }
   .price-card .plan{
-    font-family:'JetBrains Mono', monospace;
+    font-family:'Noto Serif JP', serif;
     font-size:11px;
-    color:var(--accent-drone);
+    color:var(--lapis);
     letter-spacing:0.08em;
     margin-bottom:10px;
   }
@@ -287,6 +295,7 @@
     font-family:'Shippori Mincho', serif;
     font-size:26px;
     margin-bottom:10px;
+    color:var(--ink);
   }
   .price-card .desc{
     font-size:13px;
@@ -300,7 +309,7 @@
     border-top:1px solid var(--line);
   }
   .price-card.quote{
-    border-left:2px solid var(--accent-video);
+    border-left:2px solid var(--lapis);
   }
   .amount.quote-amount{
     font-family:'Noto Sans JP', sans-serif;
@@ -317,16 +326,14 @@
     margin-top:34px;
   }
   .ach-group .ach-label{
-    font-family:'JetBrains Mono', monospace;
+    font-family:'Noto Serif JP', serif;
     font-size:11px;
+    color:var(--lapis);
     letter-spacing:0.08em;
     margin-bottom:14px;
     display:flex;
     align-items:center;
     gap:8px;
-  }
-  .ach-group .ach-label .swatch{
-    width:8px; height:8px; display:inline-block;
   }
   .ach-list{
     display:grid;
@@ -389,7 +396,7 @@
   }
   .channel .arrow{
     color:var(--ink-faint);
-    font-family:'JetBrains Mono', monospace;
+    font-family:'Noto Serif JP', serif;
     font-size:13px;
   }
 
@@ -433,11 +440,14 @@
     padding:30px 26px;
   }
   .contact-card .tag{
-    font-family:'JetBrains Mono', monospace;
+    font-family:'Noto Serif JP', serif;
     font-size:11px;
     letter-spacing:0.06em;
-    color:var(--ink-faint);
+    color:var(--lapis);
     margin-bottom:12px;
+    display:flex;
+    align-items:center;
+    gap:8px;
   }
   .contact-card h3{
     font-size:17px;
@@ -453,9 +463,10 @@
     font-size:13.5px;
     text-decoration:none;
     color:#fff;
-    background:var(--accent-drone);
-    padding:12px 20px;
+    background:var(--lapis);
+    padding:12px 20px 10px;
     border-radius:var(--radius);
+    border-bottom:3px solid var(--gold);
     transition:opacity 0.2s;
   }
   .btn:hover, .btn:focus-visible{
@@ -477,6 +488,7 @@
     font-family:'Shippori Mincho', serif;
     font-size:14px;
     margin-bottom:10px;
+    color:var(--lapis);
   }
   footer .privacy{
     font-size:12px;
@@ -507,6 +519,7 @@
       <li><a href="#achievements">実績</a></li>
       <li><a href="#portfolio">制作事例</a></li>
       <li><a href="#pricing">料金</a></li>
+      <li><a href="documents.html">資料</a></li>
       <li><a href="#contact">お問い合わせ</a></li>
     </ul>
   </div>
@@ -537,18 +550,18 @@
     <span class="eyebrow">SERVICES</span>
     <h2 class="section-title">事業内容</h2>
     <div class="pillars">
-      <div class="pillar p-drone">
-        <div class="idx"><span class="swatch"></span>01 / DRONE</div>
+      <div class="pillar">
+        <div class="idx"><svg class="picon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="6" height="6" rx="1"/><line x1="9" y1="9" x2="4" y2="4"/><line x1="15" y1="9" x2="20" y2="4"/><line x1="9" y1="15" x2="4" y2="20"/><line x1="15" y1="15" x2="20" y2="20"/><circle cx="4" cy="4" r="2.2"/><circle cx="20" cy="4" r="2.2"/><circle cx="4" cy="20" r="2.2"/><circle cx="20" cy="20" r="2.2"/></svg>01 / DRONE</div>
         <h3>ドローン</h3>
         <p>施設・建物の外観空撮、工事進捗・施工記録、観光地・宿泊施設のPR映像、イベント・式典の記録撮影に対応します。</p>
       </div>
-      <div class="pillar p-video">
-        <div class="idx"><span class="swatch"></span>02 / VIDEO</div>
+      <div class="pillar">
+        <div class="idx"><svg class="picon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="1.5"/><path d="M10 9.3l6 2.7-6 2.7z" fill="currentColor" stroke="none"/></svg>02 / VIDEO</div>
         <h3>映像制作・編集</h3>
         <p>撮影素材の編集、色調整、ナレーション・BGMの調整まで一括で対応します。</p>
       </div>
-      <div class="pillar p-3dcg">
-        <div class="idx"><span class="swatch"></span>03 / 3DCG</div>
+      <div class="pillar">
+        <div class="idx"><svg class="picon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 4.5v9L12 21l-8-4.5v-9z"/><path d="M12 12v9M12 12l8-4.5M12 12l-8-4.5"/></svg>03 / 3DCG</div>
         <h3>3DCG</h3>
         <p>Blenderによる3Dモデル制作、カメラマッチングによる合成用素材制作を行っています。BOOTHにて素材を販売中です。</p>
       </div>
@@ -600,7 +613,7 @@
     <span class="eyebrow">PRICING</span>
     <h2 class="section-title">料金</h2>
 
-    <div class="ach-label mono"><span class="swatch" style="background:var(--accent-drone)"></span>DRONE</div>
+    <div class="ach-label mono"><svg class="picon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="6" height="6" rx="1"/><line x1="9" y1="9" x2="4" y2="4"/><line x1="15" y1="9" x2="20" y2="4"/><line x1="9" y1="15" x2="4" y2="20"/><line x1="15" y1="15" x2="20" y2="20"/><circle cx="4" cy="4" r="2.2"/><circle cx="20" cy="4" r="2.2"/><circle cx="4" cy="20" r="2.2"/><circle cx="20" cy="20" r="2.2"/></svg>DRONE</div>
     <div class="price-grid">
       <div class="price-card">
         <div class="plan mono">PLAN A — 動画撮影</div>
@@ -613,9 +626,9 @@
         <div class="desc">フライト約30〜40分・静止画納品</div>
       </div>
     </div>
-    <p class="price-note">宝塚市・尼崎市・伊丹市・川西市・三田市・西宮市は移動費無料。それ以外のエリアについては、お問い合わせ時にご案内します。オプション料金・ロケハン費用・キャンセル規定を含む<a href="price.html" style="color:var(--accent-drone); text-decoration:underline;">詳細な料金表はこちら</a>。</p>
+    <p class="price-note">宝塚市・尼崎市・伊丹市・川西市・三田市・西宮市は移動費無料。それ以外のエリアについては、お問い合わせ時にご案内します。オプション料金・ロケハン費用・キャンセル規定を含む<a href="price.html" style="color:var(--lapis); text-decoration:underline; text-decoration-color:var(--gold); text-underline-offset:3px;">詳細な料金表はこちら</a>。</p>
 
-    <div class="ach-label mono" style="margin-top:44px;"><span class="swatch" style="background:var(--accent-video)"></span>VIDEO / 3DCG — お見積り制</div>
+    <div class="ach-label mono" style="margin-top:44px;"><span class="icon-pair"><svg class="picon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="1.5"/><path d="M10 9.3l6 2.7-6 2.7z" fill="currentColor" stroke="none"/></svg><svg class="picon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 4.5v9L12 21l-8-4.5v-9z"/><path d="M12 12v9M12 12l8-4.5M12 12l-8-4.5"/></svg></span>VIDEO / 3DCG — お見積り制</div>
     <div class="price-grid">
       <div class="price-card quote">
         <div class="plan mono">映像制作・編集</div>
@@ -638,7 +651,7 @@
     <h2 class="section-title">実績</h2>
 
     <div class="ach-group">
-      <div class="ach-label mono"><span class="swatch" style="background:var(--accent-drone)"></span>DRONE</div>
+      <div class="ach-label mono"><svg class="picon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="6" height="6" rx="1"/><line x1="9" y1="9" x2="4" y2="4"/><line x1="15" y1="9" x2="20" y2="4"/><line x1="9" y1="15" x2="4" y2="20"/><line x1="15" y1="15" x2="20" y2="20"/><circle cx="4" cy="4" r="2.2"/><circle cx="20" cy="4" r="2.2"/><circle cx="4" cy="20" r="2.2"/><circle cx="20" cy="20" r="2.2"/></svg>DRONE</div>
       <div class="ach-list">
         <div class="ach-item">
           <span class="who">旭テクノロジー様</span>
@@ -652,7 +665,7 @@
     </div>
 
     <div class="ach-group">
-      <div class="ach-label mono"><span class="swatch" style="background:var(--accent-3dcg)"></span>3DCG</div>
+      <div class="ach-label mono"><svg class="picon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 4.5v9L12 21l-8-4.5v-9z"/><path d="M12 12v9M12 12l8-4.5M12 12l-8-4.5"/></svg>3DCG</div>
       <div class="ach-list">
         <div class="ach-item single">
           <span class="statement">BOOTHにて3DCGモデル素材を販売中</span>
@@ -711,13 +724,13 @@
     <h2 class="section-title">お問い合わせ</h2>
     <div class="contact-grid">
       <div class="contact-card">
-        <div class="tag mono">DRONE</div>
+        <div class="tag mono"><svg class="picon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="6" height="6" rx="1"/><line x1="9" y1="9" x2="4" y2="4"/><line x1="15" y1="9" x2="20" y2="4"/><line x1="9" y1="15" x2="4" y2="20"/><line x1="15" y1="15" x2="20" y2="20"/><circle cx="4" cy="4" r="2.2"/><circle cx="20" cy="4" r="2.2"/><circle cx="4" cy="20" r="2.2"/><circle cx="20" cy="20" r="2.2"/></svg>DRONE</div>
         <h3>ドローンのご相談・お問い合わせ</h3>
         <p>撮影目的や場所など、事前アンケートフォームからご連絡ください。</p>
         <a class="btn" href="https://forms.gle/XtXZgrsPKytfKs2v9" target="_blank" rel="noopener">事前アンケートフォームへ</a>
       </div>
       <div class="contact-card">
-        <div class="tag mono">VIDEO / 3DCG</div>
+        <div class="tag mono"><span class="icon-pair"><svg class="picon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="1.5"/><path d="M10 9.3l6 2.7-6 2.7z" fill="currentColor" stroke="none"/></svg><svg class="picon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 4.5v9L12 21l-8-4.5v-9z"/><path d="M12 12v9M12 12l8-4.5M12 12l-8-4.5"/></svg></span>VIDEO / 3DCG</div>
         <h3>映像制作・3DCGのご相談</h3>
         <p>ドローン以外のご相談は、メールにて承っております。</p>
         <a class="btn alt" href="mailto:tagashiya2019@gmail.com">メールで問い合わせる</a>
