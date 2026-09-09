@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ギャラリー | たがし屋（ドローン空撮）</title>
+<meta name="description" content="たがし屋がこれまでに撮影したドローン空撮写真のギャラリー。ロケーション別・カテゴリ別の2つの見方でご覧いただけます。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;600;800&family=Noto+Serif+JP:wght@400;500;600&family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#F4F1E8;
+    --bg-alt:#DCE6F2;
+    --card:#FFFFFF;
+    --ink:#1C2A33;
+    --ink-soft:#55636B;
+    --ink-faint:#8B979C;
+    --line:#1B4B8A;
+    --lapis:#1B4B8A;
+    --deep-lapis:#0F2E57;
+    --gold:#C9A227;
+    --radius:2px;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto;}
+    *{animation-duration:0.01ms !important; animation-iteration-count:1 !important; transition-duration:0.01ms !important;}
+  }
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:'Noto Sans JP', sans-serif;
+    font-weight:400;
+    line-height:1.85;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3{
+    font-family:'Shippori Mincho', serif;
+    font-weight:600;
+    letter-spacing:0.02em;
+    margin:0;
+    color:var(--lapis);
+  }
+  .mono{font-family:'Noto Serif JP', serif; letter-spacing:0.06em;}
+  a{color:inherit;}
+  .wrap{max-width:1040px; margin:0 auto; padding:0 28px;}
+
+  .backlink{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    font-size:13px;
+    color:var(--ink-soft);
+    text-decoration:none;
+    padding:20px 0;
+  }
+  .backlink:hover, .backlink:focus-visible{color:var(--lapis);}
+
+  /* ---- Hero ---- */
+  .hero{
+    position:relative;
+    min-height:46vh;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    overflow:hidden;
+    background:
+      linear-gradient(180deg, rgba(15,46,87,.62), rgba(15,46,87,.86)),
+      url('gallery-images/eigashima/eigashima-01.jpg') center / cover no-repeat;
+    color:#fff;
+    padding:64px 24px 56px;
+  }
+  .hero .eyebrow{
+    font-family:'Noto Serif JP', serif;
+    font-size:12px;
+    letter-spacing:.3em;
+    color:var(--gold);
+    margin-bottom:18px;
+    text-transform:uppercase;
+  }
+  .hero h1{
+    color:#fff;
+    font-size:clamp(30px, 5vw, 44px);
+    line-height:1.5;
+    margin-bottom:18px;
+    letter-spacing:.04em;
+  }
+  .hero p{
+    font-size:15px;
+    line-height:1.9;
+    max-width:32em;
+    color:var(--bg-alt);
+    margin:0;
+  }
+
+  /* ---- Tabs ---- */
+  .tabbar{
+    display:flex;
+    justify-content:center;
+    gap:10px;
+    padding:36px 20px 6px;
+    flex-wrap:wrap;
+  }
+  .tab{
+    font-family:'Noto Sans JP', sans-serif;
+    font-size:14px;
+    letter-spacing:.05em;
+    padding:11px 26px;
+    border-radius:999px;
+    border:1px solid rgba(27,75,138,.28);
+    background:var(--card);
+    color:var(--lapis);
+    cursor:pointer;
+    transition: all .2s ease;
+  }
+  .tab:hover{border-color:var(--lapis);}
+  .tab:focus-visible{outline:2px solid var(--gold); outline-offset:2px;}
+  .tab.active{
+    background:var(--lapis);
+    border-color:var(--lapis);
+    color:#fff;
+    box-shadow:0 6px 16px rgba(27,75,138,.25);
+  }
+  .tab-hint{
+    text-align:center;
+    font-size:12.5px;
+    color:var(--ink-faint);
+    margin:14px 0 4px;
+  }
+
+  /* ---- Grid view ---- */
+  .grid-wrap{max-width:1040px; margin:0 auto; padding:28px 28px 90px;}
+  .grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit, minmax(220px, 1fr));
+    gap:22px;
+  }
+  .card{
+    position:relative;
+    border:none;
+    padding:0;
+    border-radius:var(--radius);
+    overflow:hidden;
+    aspect-ratio:4/5;
+    cursor:pointer;
+    isolation:isolate;
+    box-shadow:0 1px 3px rgba(15,46,87,.14);
+    transition: transform .25s ease, box-shadow .25s ease;
+    background:none;
+    text-align:left;
+    font:inherit;
+    color:inherit;
+    display:block;
+    width:100%;
+  }
+  .card img{
+    position:absolute; inset:0;
+    width:100%; height:100%;
+    object-fit:cover;
+  }
+  .card:hover, .card:focus-visible{
+    transform:translateY(-4px);
+    box-shadow:0 14px 28px rgba(15,46,87,.22);
+    outline:none;
+  }
+  .card::after{
+    content:"";
+    position:absolute; inset:0;
+    background:linear-gradient(180deg, rgba(15,46,87,0) 40%, rgba(15,46,87,.82) 100%);
+    z-index:1;
+  }
+  .card .meta{
+    position:absolute;
+    left:0; right:0; bottom:0;
+    padding:18px;
+    color:#fff;
+    z-index:2;
+  }
+  .card .meta .name{
+    font-family:'Shippori Mincho', serif;
+    font-size:19px;
+    letter-spacing:.03em;
+    display:block;
+    margin-bottom:4px;
+  }
+  .card .meta .count{
+    font-size:11px;
+    letter-spacing:.1em;
+    color:var(--bg-alt);
+  }
+  .card .tag{
+    position:absolute; top:14px; left:14px; z-index:2;
+    font-size:10px;
+    letter-spacing:.1em;
+    padding:4px 10px;
+    border-radius:999px;
+    background:rgba(255,255,255,.92);
+    color:var(--lapis);
+  }
+
+  /* ---- Detail view ---- */
+  .detail{display:none;}
+  .detail.active{display:block;}
+  .grid.active{display:grid;}
+  .grid:not(.active){display:none;}
+
+  .detail-head{padding:34px 0 6px;}
+  .detail-head .sub{
+    font-size:13px;
+    color:var(--ink-soft);
+    margin-top:8px;
+  }
+  .thumb-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fill, minmax(160px, 1fr));
+    gap:14px;
+    margin-top:26px;
+  }
+  .thumb{
+    position:relative;
+    border:none;
+    padding:0;
+    aspect-ratio:4/3;
+    border-radius:var(--radius);
+    overflow:hidden;
+    cursor:pointer;
+    box-shadow:0 1px 3px rgba(15,46,87,.14);
+    transition: transform .2s ease, box-shadow .2s ease;
+  }
+  .thumb img{
+    width:100%; height:100%;
+    object-fit:cover;
+    display:block;
+  }
+  .thumb:hover, .thumb:focus-visible{
+    transform:translateY(-3px);
+    box-shadow:0 10px 22px rgba(15,46,87,.2);
+    outline:none;
+  }
+
+  /* ---- Lightbox ---- */
+  .lightbox{
+    position:fixed;
+    inset:0;
+    background:rgba(10,14,20,.94);
+    z-index:200;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:24px;
+  }
+  .lightbox[hidden]{display:none;}
+  .lb-stage{
+    position:relative;
+    max-width:min(1100px, 92vw);
+    max-height:86vh;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+  }
+  .lb-stage img{
+    max-width:100%;
+    max-height:74vh;
+    object-fit:contain;
+    box-shadow:0 20px 50px rgba(0,0,0,.5);
+  }
+  .lb-caption{
+    color:#fff;
+    font-size:13.5px;
+    margin-top:16px;
+    text-align:center;
+  }
+  .lb-counter{
+    color:rgba(255,255,255,.5);
+    font-family:'Noto Serif JP', serif;
+    font-size:11px;
+    letter-spacing:.1em;
+    margin-top:6px;
+  }
+  .lb-close, .lb-prev, .lb-next{
+    position:fixed;
+    background:none;
+    border:none;
+    color:#fff;
+    cursor:pointer;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    z-index:201;
+  }
+  .lb-close{
+    top:20px; right:24px;
+    width:40px; height:40px;
+    font-size:28px;
+    line-height:1;
+  }
+  .lb-prev, .lb-next{
+    top:50%;
+    transform:translateY(-50%);
+    width:56px; height:56px;
+    font-size:34px;
+  }
+  .lb-prev{left:8px;}
+  .lb-next{right:8px;}
+  .lb-close:hover, .lb-prev:hover, .lb-next:hover,
+  .lb-close:focus-visible, .lb-prev:focus-visible, .lb-next:focus-visible{
+    color:var(--gold);
+  }
+  @media (max-width:640px){
+    .lb-prev, .lb-next{width:42px; height:42px; font-size:28px;}
+    .lb-prev{left:2px;}
+    .lb-next{right:2px;}
+  }
+
+  footer{
+    padding:40px 0 50px;
+    border-top:1px solid var(--line);
+    text-align:center;
+  }
+  footer .foot-brand{
+    font-family:'Shippori Mincho', serif;
+    font-size:13px;
+    color:var(--lapis);
+  }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <a class="backlink" href="index.html">← たがし屋トップへ戻る</a>
+</div>
+
+<section class="hero">
+  <div class="eyebrow">GALLERY</div>
+  <h1>これまでの、空の記録。</h1>
+  <p>これまでに撮影した景色を、ロケーションとカテゴリの2つの見方でご覧いただけます。</p>
+</section>
+
+<div class="tabbar" role="tablist" aria-label="ギャラリー表示切り替え">
+  <button class="tab active" id="tab-location" role="tab" aria-selected="true">ロケーションで見る</button>
+  <button class="tab" id="tab-category" role="tab" aria-selected="false">カテゴリで見る</button>
+</div>
+<p class="tab-hint" id="hint">撮影地ごとに、その場所らしい一枚から</p>
+
+<div class="grid-wrap">
+  <div class="grid active" id="grid-location"></div>
+  <div class="grid" id="grid-category"></div>
+
+  <div class="detail" id="detail">
+    <a class="backlink" href="#" id="detailBack">← 一覧に戻る</a>
+    <div class="detail-head">
+      <span class="mono" style="font-size:11px; color:var(--lapis); letter-spacing:.08em;" id="detailEyebrow"></span>
+      <h2 id="detailTitle"></h2>
+      <p class="sub" id="detailSub"></p>
+    </div>
+    <div class="thumb-grid" id="thumbGrid"></div>
+  </div>
+</div>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-brand">たがし屋</div>
+  </div>
+</footer>
+
+<div class="lightbox" id="lightbox" hidden>
+  <button class="lb-close" id="lbClose" aria-label="閉じる">×</button>
+  <button class="lb-prev" id="lbPrev" aria-label="前の写真">‹</button>
+  <div class="lb-stage">
+    <img id="lbImg" src="" alt="">
+    <div class="lb-caption" id="lbCaption"></div>
+    <div class="lb-counter" id="lbCounter"></div>
+  </div>
+  <button class="lb-next" id="lbNext" aria-label="次の写真">›</button>
+</div>
+
+<script>
+const LOCATIONS = [
+  { id:'eigashima',    name:'江井ヶ島海岸',       area:'兵庫県明石市',   category:'coast' },
+  { id:'shioyahama',   name:'塩屋浜',             area:'兵庫県神戸市',   category:'coast' },
+  { id:'chimyoko',     name:'知明湖／一庫ダム',   area:'大阪府豊能郡',   category:'dam' },
+  { id:'kamakurakyo',  name:'鎌倉峡',             area:'兵庫県神戸市',   category:'river' },
+  { id:'hayashizaki',  name:'林崎松江海岸',       area:'兵庫県明石市',   category:'coast' },
+];
+
+const CATEGORY_LABELS = { coast:'海岸', dam:'ダム', river:'河川' };
+
+// caption: 空なら非表示。特定の写真だけキャプションを付けたい場合はここに一言を入れる。
+const PHOTOS = {
+  eigashima: [
+    { file:'eigashima-01.jpg', caption:'' },
+    { file:'eigashima-02.jpg', caption:'' },
+    { file:'eigashima-03.jpg', caption:'' },
+    { file:'eigashima-04.jpg', caption:'' },
+    { file:'eigashima-05.jpg', caption:'' },
+    { file:'eigashima-06.jpg', caption:'' },
+    { file:'eigashima-07.jpg', caption:'' },
+    { file:'eigashima-08.jpg', caption:'' },
+    { file:'eigashima-09.jpg', caption:'' },
+    { file:'eigashima-10.jpg', caption:'' },
+  ],
+  shioyahama: [
+    { file:'shioyahama-01.jpg', caption:'' },
+    { file:'shioyahama-02.jpg', caption:'' },
+    { file:'shioyahama-03.jpg', caption:'' },
+    { file:'shioyahama-04.jpg', caption:'' },
+    { file:'shioyahama-05.jpg', caption:'' },
+  ],
+  chimyoko: [
+    { file:'chimyoko-01.jpg', caption:'' },
+    { file:'chimyoko-02.jpg', caption:'' },
+    { file:'chimyoko-03.jpg', caption:'' },
+    { file:'chimyoko-04.jpg', caption:'' },
+  ],
+  kamakurakyo: [
+    { file:'kamakurakyo-01.jpg', caption:'' },
+    { file:'kamakurakyo-02.jpg', caption:'' },
+    { file:'kamakurakyo-03.jpg', caption:'' },
+  ],
+  hayashizaki: [
+    { file:'hayashizaki-01.jpg', caption:'' },
+    { file:'hayashizaki-02.jpg', caption:'' },
+    { file:'hayashizaki-03.jpg', caption:'' },
+    { file:'hayashizaki-04.jpg', caption:'' },
+    { file:'hayashizaki-05.jpg', caption:'' },
+    { file:'hayashizaki-06.jpg', caption:'' },
+  ],
+};
+
+function photoUrl(locId, file){ return 'gallery-images/' + locId + '/' + file; }
+
+function locationsByCategory(catId){
+  return LOCATIONS.filter(l => l.category === catId);
+}
+function categoryPhotoCount(catId){
+  return locationsByCategory(catId).reduce((sum, l) => sum + PHOTOS[l.id].length, 0);
+}
+function categoryCoverUrl(catId){
+  const loc = locationsByCategory(catId)[0];
+  return photoUrl(loc.id, PHOTOS[loc.id][0].file);
+}
+function categoryPhotoList(catId){
+  const list = [];
+  locationsByCategory(catId).forEach(loc => {
+    PHOTOS[loc.id].forEach((p, i) => list.push({ url: photoUrl(loc.id, p.file), caption: p.caption, label: loc.name + ' ' + (i + 1) }));
+  });
+  return list;
+}
+function locationPhotoList(locId){
+  const loc = LOCATIONS.find(l => l.id === locId);
+  return PHOTOS[locId].map((p, i) => ({ url: photoUrl(locId, p.file), caption: p.caption, label: loc.name + ' ' + (i + 1) }));
+}
+
+const gridLocation = document.getElementById('grid-location');
+const gridCategory = document.getElementById('grid-category');
+const tabLoc = document.getElementById('tab-location');
+const tabCat = document.getElementById('tab-category');
+const hint = document.getElementById('hint');
+const detail = document.getElementById('detail');
+const detailBack = document.getElementById('detailBack');
+const detailEyebrow = document.getElementById('detailEyebrow');
+const detailTitle = document.getElementById('detailTitle');
+const detailSub = document.getElementById('detailSub');
+const thumbGrid = document.getElementById('thumbGrid');
+
+function renderLocationGrid(){
+  gridLocation.innerHTML = LOCATIONS.map(loc => `
+    <button class="card" data-type="location" data-id="${loc.id}">
+      <img src="${photoUrl(loc.id, PHOTOS[loc.id][0].file)}" alt="${loc.name}" loading="lazy">
+      <span class="tag">${loc.area}</span>
+      <span class="meta">
+        <span class="name">${loc.name}</span>
+        <span class="count">${PHOTOS[loc.id].length}枚</span>
+      </span>
+    </button>
+  `).join('');
+}
+
+function renderCategoryGrid(){
+  const cats = Object.keys(CATEGORY_LABELS);
+  gridCategory.innerHTML = cats.map(catId => `
+    <button class="card" data-type="category" data-id="${catId}">
+      <img src="${categoryCoverUrl(catId)}" alt="${CATEGORY_LABELS[catId]}" loading="lazy">
+      <span class="tag">CATEGORY</span>
+      <span class="meta">
+        <span class="name">${CATEGORY_LABELS[catId]}</span>
+        <span class="count">${categoryPhotoCount(catId)}枚</span>
+      </span>
+    </button>
+  `).join('');
+}
+
+function renderThumbs(photos){
+  thumbGrid.innerHTML = photos.map((p, i) => `
+    <button class="thumb" data-index="${i}">
+      <img src="${p.url}" alt="${p.label}" loading="lazy">
+    </button>
+  `).join('');
+}
+
+let currentPhotos = [];
+
+function openDetail(type, id, opts){
+  opts = opts || {};
+  let photos, title, sub, eyebrow;
+  if (type === 'location'){
+    const loc = LOCATIONS.find(l => l.id === id);
+    photos = locationPhotoList(loc.id);
+    title = loc.name;
+    sub = loc.area + ' ／ ' + photos.length + '枚';
+    eyebrow = 'LOCATION';
+    if (!opts.skipHash) history.replaceState(null, '', '#' + loc.id);
+  } else {
+    photos = categoryPhotoList(id);
+    title = CATEGORY_LABELS[id];
+    sub = photos.length + '枚';
+    eyebrow = 'CATEGORY';
+    if (!opts.skipHash) history.replaceState(null, '', location.pathname);
+  }
+  currentPhotos = photos;
+  detailEyebrow.textContent = eyebrow;
+  detailTitle.textContent = title;
+  detailSub.textContent = sub;
+  renderThumbs(photos);
+
+  gridLocation.classList.remove('active');
+  gridCategory.classList.remove('active');
+  document.querySelector('.tabbar').style.display = 'none';
+  hint.style.display = 'none';
+  detail.classList.add('active');
+  if (!opts.skipScroll) detail.scrollIntoView({ block:'start' });
+}
+
+function closeDetail(){
+  detail.classList.remove('active');
+  document.querySelector('.tabbar').style.display = '';
+  hint.style.display = '';
+  const isLoc = tabLoc.classList.contains('active');
+  gridLocation.classList.toggle('active', isLoc);
+  gridCategory.classList.toggle('active', !isLoc);
+  history.replaceState(null, '', location.pathname);
+}
+
+detailBack.addEventListener('click', (e) => { e.preventDefault(); closeDetail(); });
+
+document.addEventListener('click', (e) => {
+  const card = e.target.closest('.card');
+  if (card){
+    openDetail(card.dataset.type, card.dataset.id);
+    return;
+  }
+  const thumb = e.target.closest('.thumb');
+  if (thumb){
+    openLightbox(parseInt(thumb.dataset.index, 10));
+  }
+});
+
+function setTab(which){
+  const isLoc = which === 'location';
+  tabLoc.classList.toggle('active', isLoc);
+  tabCat.classList.toggle('active', !isLoc);
+  tabLoc.setAttribute('aria-selected', isLoc);
+  tabCat.setAttribute('aria-selected', !isLoc);
+  hint.textContent = isLoc ? '撮影地ごとに、その場所らしい一枚から' : 'カテゴリ横断で、雰囲気から選んで見られます';
+  gridLocation.classList.toggle('active', isLoc);
+  gridCategory.classList.toggle('active', !isLoc);
+}
+tabLoc.addEventListener('click', () => setTab('location'));
+tabCat.addEventListener('click', () => setTab('category'));
+
+/* ---- Lightbox ---- */
+const lightbox = document.getElementById('lightbox');
+const lbImg = document.getElementById('lbImg');
+const lbCaption = document.getElementById('lbCaption');
+const lbCounter = document.getElementById('lbCounter');
+let lbIndex = 0;
+
+function showPhoto(i){
+  lbIndex = (i + currentPhotos.length) % currentPhotos.length;
+  const p = currentPhotos[lbIndex];
+  lbImg.src = p.url;
+  lbImg.alt = p.label;
+  lbCaption.hidden = !p.caption;
+  lbCaption.textContent = p.caption || '';
+  lbCounter.textContent = (lbIndex + 1) + ' / ' + currentPhotos.length;
+}
+function openLightbox(i){
+  showPhoto(i);
+  lightbox.hidden = false;
+}
+function closeLightbox(){
+  lightbox.hidden = true;
+}
+document.getElementById('lbClose').addEventListener('click', closeLightbox);
+document.getElementById('lbPrev').addEventListener('click', () => showPhoto(lbIndex - 1));
+document.getElementById('lbNext').addEventListener('click', () => showPhoto(lbIndex + 1));
+lightbox.addEventListener('click', (e) => {
+  if (e.target === lightbox) closeLightbox();
+});
+document.addEventListener('keydown', (e) => {
+  if (lightbox.hidden) return;
+  if (e.key === 'Escape') closeLightbox();
+  if (e.key === 'ArrowLeft') showPhoto(lbIndex - 1);
+  if (e.key === 'ArrowRight') showPhoto(lbIndex + 1);
+});
+
+/* ---- Init ---- */
+renderLocationGrid();
+renderCategoryGrid();
+
+const hash = location.hash.replace('#', '');
+if (hash && LOCATIONS.some(l => l.id === hash)){
+  openDetail('location', hash, { skipHash:true, skipScroll:true });
+}
+</script>
+
+</body>
+</html>
