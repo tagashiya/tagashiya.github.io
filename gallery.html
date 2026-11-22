@@ -248,6 +248,74 @@
     box-shadow:0 10px 22px rgba(15,46,87,.2);
     outline:none;
   }
+  .thumb .badge-360{
+    position:absolute; top:10px; left:10px;
+    font-family:'Noto Sans JP', sans-serif;
+    font-size:11px;
+    font-weight:500;
+    letter-spacing:.08em;
+    line-height:1;
+    padding:5px 10px;
+    border-radius:999px;
+    background:rgba(255,255,255,.92);
+    color:var(--lapis);
+  }
+
+  /* ---- 360° viewer ---- */
+  .pano-viewer{
+    position:fixed;
+    inset:0;
+    background:rgba(10,14,20,.94);
+    z-index:200;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:24px;
+  }
+  .pano-viewer[hidden]{display:none;}
+  .pano-box{
+    width:min(1100px, 92vw);
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+  }
+  .pano-stage{
+    width:100%;
+    height:min(74vh, 620px);
+    background:#000;
+    box-shadow:0 20px 50px rgba(0,0,0,.5);
+    position:relative;
+  }
+  .pano-inner{position:absolute; inset:0;}
+  .pano-msg{
+    position:absolute; inset:0;
+    display:flex; align-items:center; justify-content:center;
+    color:#fff; font-size:13.5px; text-align:center; padding:20px;
+  }
+  .pano-hint{
+    color:rgba(255,255,255,.5);
+    font-family:'Noto Serif JP', serif;
+    font-size:11px;
+    letter-spacing:.1em;
+    margin-top:12px;
+    user-select:none;
+  }
+  .pano-close{
+    position:fixed;
+    top:20px; right:24px;
+    width:40px; height:40px;
+    background:none; border:none;
+    color:#fff; cursor:pointer;
+    font-size:28px; line-height:1;
+    display:flex; align-items:center; justify-content:center;
+    z-index:201;
+  }
+  .pano-close:hover, .pano-close:focus-visible{color:var(--gold);}
+  @media (max-width:640px){
+    .pano-viewer{padding:60px 12px 24px;}
+    .pano-box{width:100%;}
+    .pano-stage{height:66vh;}
+  }
 
   /* ---- Lightbox ---- */
   .lightbox{
@@ -385,6 +453,14 @@
   <button class="lb-next" id="lbNext" aria-label="次の写真">›</button>
 </div>
 
+<div class="pano-viewer" id="panoViewer" hidden role="dialog" aria-label="360°ビューア">
+  <button class="pano-close" id="panoClose" aria-label="閉じる">×</button>
+  <div class="pano-box">
+    <div class="pano-stage"><div class="pano-inner" id="panoStage"></div></div>
+    <div class="pano-hint">ドラッグ・スワイプで見回せます</div>
+  </div>
+</div>
+
 <script>
 const LOCATIONS = [
   { id:'eigashima',    name:'江井ヶ島海岸',       area:'兵庫県明石市',   category:'coast' },
@@ -452,13 +528,30 @@ const PHOTOS = {
   ],
 };
 
+// 360°パノラマ。一覧では thumb だけを読み込み、file はビューアを開いたときに読み込む。
+// ライトボックスの前後切り替えには含めない。
+const PANORAMAS = {
+  byobugaura: [
+    { file:'byobugaura-360.jpg', thumb:'byobugaura-360-thumb.jpg' },
+  ],
+};
+
 function photoUrl(locId, file){ return 'gallery-images/' + locId + '/' + file; }
+function panosOf(locId){ return PANORAMAS[locId] || []; }
+function locationItemCount(locId){ return PHOTOS[locId].length + panosOf(locId).length; }
 
 function locationsByCategory(catId){
   return LOCATIONS.filter(l => l.category === catId);
 }
 function categoryPhotoCount(catId){
-  return locationsByCategory(catId).reduce((sum, l) => sum + PHOTOS[l.id].length, 0);
+  return locationsByCategory(catId).reduce((sum, l) => sum + locationItemCount(l.id), 0);
+}
+function panoList(locs){
+  const list = [];
+  locs.forEach(loc => {
+    panosOf(loc.id).forEach(p => list.push({ url: photoUrl(loc.id, p.file), thumb: photoUrl(loc.id, p.thumb), label: loc.name + ' 360°' }));
+  });
+  return list;
 }
 function categoryCoverUrl(catId){
   const loc = locationsByCategory(catId)[0];
@@ -495,7 +588,7 @@ function renderLocationGrid(){
       <span class="tag">${loc.area}</span>
       <span class="meta">
         <span class="name">${loc.name}</span>
-        <span class="count">${PHOTOS[loc.id].length}枚</span>
+        <span class="count">${locationItemCount(loc.id)}枚</span>
       </span>
     </button>
   `).join('');
@@ -515,38 +608,47 @@ function renderCategoryGrid(){
   `).join('');
 }
 
-function renderThumbs(photos){
+function renderThumbs(photos, panos){
   thumbGrid.innerHTML = photos.map((p, i) => `
     <button class="thumb" data-index="${i}">
       <img src="${p.url}" alt="${p.label}" loading="lazy">
+    </button>
+  `).join('') + panos.map((p, i) => `
+    <button class="thumb thumb-360" data-pano="${i}" aria-label="${p.label}（360°ビューアで開く）">
+      <img src="${p.thumb}" alt="${p.label}" loading="lazy">
+      <span class="badge-360">360°</span>
     </button>
   `).join('');
 }
 
 let currentPhotos = [];
+let currentPanos = [];
 
 function openDetail(type, id, opts){
   opts = opts || {};
-  let photos, title, sub, eyebrow;
+  let photos, panos, title, sub, eyebrow;
   if (type === 'location'){
     const loc = LOCATIONS.find(l => l.id === id);
     photos = locationPhotoList(loc.id);
+    panos = panoList([loc]);
     title = loc.name;
-    sub = loc.area + ' ／ ' + photos.length + '枚';
+    sub = loc.area + ' ／ ' + (photos.length + panos.length) + '枚';
     eyebrow = 'LOCATION';
     if (!opts.skipHash) history.replaceState(null, '', '#' + loc.id);
   } else {
     photos = categoryPhotoList(id);
+    panos = panoList(locationsByCategory(id));
     title = CATEGORY_LABELS[id];
-    sub = photos.length + '枚';
+    sub = (photos.length + panos.length) + '枚';
     eyebrow = 'CATEGORY';
     if (!opts.skipHash) history.replaceState(null, '', location.pathname);
   }
   currentPhotos = photos;
+  currentPanos = panos;
   detailEyebrow.textContent = eyebrow;
   detailTitle.textContent = title;
   detailSub.textContent = sub;
-  renderThumbs(photos);
+  renderThumbs(photos, panos);
 
   gridLocation.classList.remove('active');
   gridCategory.classList.remove('active');
@@ -572,6 +674,11 @@ document.addEventListener('click', (e) => {
   const card = e.target.closest('.card');
   if (card){
     openDetail(card.dataset.type, card.dataset.id);
+    return;
+  }
+  const pano = e.target.closest('.thumb-360');
+  if (pano){
+    openPano(parseInt(pano.dataset.pano, 10));
     return;
   }
   const thumb = e.target.closest('.thumb');
@@ -627,6 +734,88 @@ document.addEventListener('keydown', (e) => {
   if (e.key === 'Escape') closeLightbox();
   if (e.key === 'ArrowLeft') showPhoto(lbIndex - 1);
   if (e.key === 'ArrowRight') showPhoto(lbIndex + 1);
+});
+
+/* ---- 360° viewer (Pannellum 2.5.6, MIT License) ----
+   ライブラリと360°画像は、ビューアを開いたときに初めて読み込む。 */
+const PANNELLUM = {
+  css: { href:'https://cdn.jsdelivr.net/npm/pannellum@2.5.6/build/pannellum.css', integrity:'sha384-02yn80EH0cF+s23taAmuhEZ04p3CTbQvV0QZMr2reUxajpfvcLNKlzsPkZwx14mf' },
+  js:  { src:'https://cdn.jsdelivr.net/npm/pannellum@2.5.6/build/pannellum.js',   integrity:'sha384-S5+w/JlcNAOymqXGNrvzn2F++XsaHTJdex6KE5VbKryfFgqJiRUJOgOkUqaiOZTf' },
+};
+const panoViewer = document.getElementById('panoViewer');
+const panoStage = document.getElementById('panoStage');
+let pannellumLoading = null;
+let panoInstance = null;
+
+function loadPannellum(){
+  if (window.pannellum) return Promise.resolve();
+  if (pannellumLoading) return pannellumLoading;
+  pannellumLoading = new Promise((resolve, reject) => {
+    const link = document.createElement('link');
+    link.rel = 'stylesheet';
+    link.href = PANNELLUM.css.href;
+    link.integrity = PANNELLUM.css.integrity;
+    link.crossOrigin = 'anonymous';
+    document.head.appendChild(link);
+    const script = document.createElement('script');
+    script.src = PANNELLUM.js.src;
+    script.integrity = PANNELLUM.js.integrity;
+    script.crossOrigin = 'anonymous';
+    script.onload = () => resolve();
+    script.onerror = () => { pannellumLoading = null; script.remove(); reject(); };
+    document.head.appendChild(script);
+  });
+  return pannellumLoading;
+}
+
+function showPanoMessage(text){
+  panoStage.innerHTML = '<div class="pano-msg"></div>';
+  panoStage.firstChild.textContent = text;
+}
+
+function openPano(i){
+  const p = currentPanos[i];
+  if (!p) return;
+  panoViewer.hidden = false;
+  showPanoMessage('読み込み中…');
+  loadPannellum().then(() => {
+    if (panoViewer.hidden) return;
+    panoStage.innerHTML = '';
+    panoInstance = pannellum.viewer(panoStage, {
+      type:'equirectangular',
+      panorama:p.url,
+      autoLoad:true,
+      showZoomCtrl:true,
+      showFullscreenCtrl:true,
+      strings:{
+        loadingLabel:'読み込み中…',
+        loadButtonLabel:'クリックして読み込む',
+        bylineLabel:'',
+        noPanoramaError:'画像が指定されていません。',
+        fileAccessError:'画像を読み込めませんでした。',
+        malformedURLError:'画像の指定に誤りがあります。',
+        iOS8WebGLError:'お使いの端末では360°画像を表示できません。',
+        genericWebGLError:'お使いの端末では360°画像を表示できません。',
+        textureSizeError:'お使いの端末では、この360°画像のサイズを表示できません。',
+        unknownError:'表示できませんでした。',
+      },
+    });
+  }).catch(() => {
+    showPanoMessage('360°ビューアを読み込めませんでした。時間をおいて再度お試しください。');
+  });
+}
+
+function closePano(){
+  if (panoInstance){ panoInstance.destroy(); panoInstance = null; }
+  panoStage.innerHTML = '';
+  panoViewer.hidden = true;
+}
+document.getElementById('panoClose').addEventListener('click', closePano);
+panoViewer.addEventListener('click', (e) => {
+  if (e.target === panoViewer) closePano();
+});
+document.addEventListener('keydown', (e) => {
+  if (!panoViewer.hidden && e.key === 'Escape') closePano();
 });
 
 /* ---- Init ---- */
